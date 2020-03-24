@@ -31,10 +31,9 @@ RUN cmake ../ &&\
     make install &&\
     ldconfig
 
-WORKDIR /usr/share
-ADD airspy-mini.conf
+ADD airspy-mini.conf /usr/src/gr-iridium/examples/
 
 RUN cp -r /usr/local/lib/python3/dist-packages/* /usr/local/lib/python3.6/dist-packages/ &&\
     chown -R root:root /usr/local/lib/python3.6/dist-packages/
 
-ENTRYPOINT iridium-extractor -D 4 airspy-mini.conf | grep "A:OK" > /opt/output/output.bits
+ENTRYPOINT iridium-extractor -D 4 /usr/src/gr-iridium/examples/airspy-mini.conf | grep "A:OK" > /opt/output/output.bits
