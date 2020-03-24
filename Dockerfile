@@ -3,6 +3,7 @@ FROM ubuntu:18.04
 ARG DEBIAN_FRONTEND=noninteractive
 
 ENV SDR=airspy-mini
+ENV TZ=Etc/UTC
 
 VOLUME ["/opt/output"]
 
@@ -53,8 +54,9 @@ RUN cmake ../ &&\
     ldconfig
 
 ADD ./airspy-mini.conf /usr/src/gr-iridium/examples/
+ADD ./entrypoint.sh /usr/share/
 
 RUN cp -r /usr/local/lib/python3/dist-packages/* /usr/local/lib/python3.6/dist-packages/ &&\
     chown -R root:root /usr/local/lib/python3.6/dist-packages/
 
-ENTRYPOINT iridium-extractor -D 4 /usr/src/gr-iridium/examples/$SDR.conf | grep "A:OK" > /opt/output/output.bits
+ENTRYPOINT /usr/share/entrypoint.sh
