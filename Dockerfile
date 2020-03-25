@@ -17,6 +17,7 @@ RUN apt update && \
 
 WORKDIR /usr/src
 
+#installing cmake takes an extraordinarily long time
 RUN wget https://github.com/Kitware/CMake/releases/download/v3.17.0/cmake-3.17.0.tar.gz && \
     tar -xzf cmake-3.17.0.tar.gz
 WORKDIR /usr/src/cmake-3.17.0
@@ -31,20 +32,25 @@ RUN apt install -y git \
         libairspyhf-dev \
         libsoapysdr-dev \
         librtlsdr-dev \
-        gnuradio \
-        gnuradio-dev \
-        gr-osmosdr
-
-RUN apt install -y libairspy0 \
-    libairspyhf0 \
-    librtlsdr0 \
-    libhackrf0 \
-    libhackrf-dev \
+        libhackrf-dev \
+    #this is all the dependencies for building gnuradio, some of them will be duplicates of previous
     git cmake g++ libboost-all-dev libgmp-dev swig python3-numpy \
     python3-mako python3-sphinx python3-lxml doxygen libfftw3-dev \
     libsdl1.2-dev libgsl-dev libqwt-qt5-dev libqt5opengl5-dev python3-pyqt5 \
     liblog4cpp5-dev libzmq3-dev python3-yaml python3-click python3-click-plugins \
     python3-zmq python3-scipy
+
+#FELL THE PAIN OF COMPILING GNURADIO
+WORKDIR /usr/src
+RUN git clone --recursive https://github.com/gnuradio/gnuradio.git &&\
+    mkdir /usr/src/gnuradio/build
+WORKDIR /usr/src/gnuradio
+RUN git checkout maint-3.8
+WORKDIR /usr/src/gnuradio/build
+RUN cmake -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3 ../ &&\
+    make -j$(nproc) &&\
+    make install &&\
+    ldconfig
 
 WORKDIR /usr/src
 RUN git clone https://github.com/osmocom/gr-osmosdr &&\
