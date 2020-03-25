@@ -38,7 +38,7 @@ RUN apt install -y git \
 WORKDIR /usr/src
 RUN git clone https://github.com/osmocom/gr-osmosdr &&\
     mkdir /usr/src/gr-osmosdr/build
-WORKDIR /usr/src/gr-iridium/build
+WORKDIR /usr/src/gr-osmosdr/build
 RUN cmake ../ &&\
     make -j$(nproc) &&\
     make install &&\
