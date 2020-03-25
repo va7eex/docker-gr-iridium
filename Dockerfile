@@ -35,6 +35,17 @@ RUN apt install -y git \
         gnuradio-dev \
         gr-osmosdr
 
+RUN apt install -y libairspy0 \
+    libairspyhf0 \
+    librtlsdr0 \
+    libhackrf0 \
+    libhackrf-dev \
+    git cmake g++ libboost-all-dev libgmp-dev swig python3-numpy \
+    python3-mako python3-sphinx python3-lxml doxygen libfftw3-dev \
+    libsdl1.2-dev libgsl-dev libqwt-qt5-dev libqt5opengl5-dev python3-pyqt5 \
+    liblog4cpp5-dev libzmq3-dev python3-yaml python3-click python3-click-plugins \
+    python3-zmq python3-scipy
+
 WORKDIR /usr/src
 RUN git clone https://github.com/osmocom/gr-osmosdr &&\
     mkdir /usr/src/gr-osmosdr/build
