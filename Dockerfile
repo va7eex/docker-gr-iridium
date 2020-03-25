@@ -40,7 +40,7 @@ RUN git clone https://github.com/osmocom/gr-osmosdr &&\
     mkdir /usr/src/gr-osmosdr/build
 WORKDIR /usr/src/gr-iridium/build
 RUN cmake ../ &&\
-    make -j$(nproc)&& \
+    make -j$(nproc) &&\
     make install &&\
     ldconfig
 
@@ -49,7 +49,7 @@ RUN git clone https://github.com/muccc/gr-iridium &&\
     mkdir /usr/src/gr-iridium/build
 WORKDIR /usr/src/gr-iridium/build
 RUN cmake ../ &&\
-    make -j$(nproc)&& \
+    make -j$(nproc) &&\
     make install &&\
     ldconfig
 
