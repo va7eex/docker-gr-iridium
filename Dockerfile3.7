@@ -1,0 +1,43 @@
+FROM ubuntu:18.04
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+ENV SDR=airspy-mini
+ENV TZ=Etc/UTC
+ENV SDR_INDEX=0
+
+VOLUME ["/opt/output"]
+
+RUN apt update && \
+    apt upgrade -y && \
+    apt install -y software-properties-common \
+        build-essential \
+        cmake
+
+#installing cmake takes an extraordinarily long time
+
+RUN add-apt-repository ppa:gnuradio/gnuradio-releases-3.7
+RUN apt install -y git \
+        gnuradio \
+        gr-osmosdr \
+        swig \
+        doxygen \
+        liborc-0.4-dev
+
+WORKDIR /usr/src
+RUN git clone https://github.com/muccc/gr-iridium
+WORKDIR /usr/src/gr-iridium
+RUN git checkout maint-3.7 &&\
+    mkdir ./build
+WORKDIR /usr/src/gr-iridium/build
+RUN cmake ../ &&\
+    make -j$(nproc) &&\
+    make install &&\
+    ldconfig
+
+#there is no pre-defined config for the airspy-mini
+ADD ./airspy-mini.conf /usr/src/gr-iridium/examples/
+ADD ./entrypoint.sh /usr/share/
+
+
+#ENTRYPOINT /usr/share/entrypoint.sh
