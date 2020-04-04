@@ -19,8 +19,7 @@ RUN apt update && \
     apt install -y software-properties-common \
         build-essential \
         cmake \
-        usbutils \
-        bash
+        usbutils
 
 #installing cmake takes an extraordinarily long time
 
@@ -44,6 +43,6 @@ RUN cmake ../ &&\
     ldconfig
 
 COPY entrypoint.sh /usr/share/
-RUN chmod +x /usr/share/entrypoint.sh
+RUN chmod a+x /usr/share/entrypoint.sh
 
-ENTRYPOINT bash /usr/share/entrypoint.sh
+ENTRYPOINT /usr/share/entrypoint.sh
