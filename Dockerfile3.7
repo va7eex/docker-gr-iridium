@@ -42,7 +42,7 @@ RUN cmake ../ &&\
     make install &&\
     ldconfig
 
-COPY entrypoint.sh /usr/share/
-RUN chmod a+x /usr/share/entrypoint.sh
+COPY entrypoint.sh /usr/src/
+RUN chmod a+x /usr/src/entrypoint.sh
 
-ENTRYPOINT /usr/share/entrypoint.sh
+ENTRYPOINT ["/usr/src/entrypoint.sh"]
