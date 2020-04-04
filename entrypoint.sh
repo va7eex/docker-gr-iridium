@@ -5,6 +5,7 @@ cp /usr/share/zoneinfo/$TZ /etc/localtime
 echo $TZ > /etc/timezone
 
 #create config file from environment values
+touch /tmp/sdr.conf
 echo "[osmosdr-source]" > /tmp/sdr.conf
 echo "samplerate=${SAMPLERATE}" >> /tmp/sdr.conf
 echo "center_freq=${CENTER_FREQ}" >> /tmp/sdr.conf
