@@ -2,9 +2,15 @@ FROM ubuntu:18.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-ENV SDR=airspy-mini
+ENV SDR=rtl
 ENV TZ=Etc/UTC
 ENV SDR_INDEX=0
+ENV SAMPLERATE=2000000
+ENV CENTER_FREQ=1625500000
+ENV BIAS=0
+ENV BANDWIDTH=0
+ENV GAIN=0
+ENV IF_GAIN=0
 
 VOLUME ["/opt/output"]
 
@@ -36,9 +42,6 @@ RUN cmake ../ &&\
     make install &&\
     ldconfig
 
-#there is no pre-defined config for the airspy-mini
-ADD ./airspy-mini.conf /usr/src/gr-iridium/examples/
 ADD ./entrypoint.sh /usr/share/
 
-
-#ENTRYPOINT /usr/share/entrypoint.sh
+ENTRYPOINT /usr/share/entrypoint.sh
