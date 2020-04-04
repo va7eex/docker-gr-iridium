@@ -1,5 +1,6 @@
 #!/bin/sh
 
+#where is that \r?
 cp /usr/share/zoneinfo/$TZ /etc/localtime
 echo $TZ > /etc/timezone
 
