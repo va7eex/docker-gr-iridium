@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #where is that \r?
-cp /usr/share/zoneinfo/$TZ /etc/localtime
+#cp /usr/share/zoneinfo/$TZ /etc/localtime
 echo $TZ > /etc/timezone
 
 #create config file from environment values
