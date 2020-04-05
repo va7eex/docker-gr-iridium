@@ -42,6 +42,7 @@ RUN cmake ../ &&\
     make install &&\
     ldconfig
 
+RUN echo "this command does nothing"
 COPY ./entrypoint.sh /usr/src/entrypoint.sh
 RUN sed -i s/$'\r'/''/g /usr/src/entrypoint.sh
 
