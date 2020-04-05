@@ -43,5 +43,6 @@ RUN cmake ../ &&\
     ldconfig
 
 COPY ./entrypoint.sh /usr/src/entrypoint.sh
+RUN sed -i s/$'\r'/''/g /usr/src/entrypoint.sh
 
-#ENTRYPOINT /usr/src/entrypoint.sh
+ENTRYPOINT bash /usr/src/entrypoint.sh
