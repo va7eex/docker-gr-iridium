@@ -7,7 +7,7 @@ echo $TZ > /etc/timezone
 
 touch /tmp/sdr.conf
 echo "[osmosdr-source]" > /tmp/sdr.conf
-echo "samplerate=${SAMPLERATE}" >> /tmp/sdr.conf
+echo "sample_rate=${SAMPLERATE}" >> /tmp/sdr.conf
 echo "center_freq=${CENTER_FREQ}" >> /tmp/sdr.conf
 echo "device_args='${SDR}=${SDR_INDEX},bias=${BIAS}'" >> /tmp/sdr.conf
 echo "bandwidth=${BANDWIDTH}" >> /tmp/sdr.conf
